@@ -1,7 +1,9 @@
+import { Button } from '@/components/ui/button'
+
 export default function Home() {
   return (
-    <div className="text-green-500">
-      <p>Hello Duolingooo</p>
+    <div className="">
+      <Button>Click me</Button>
     </div>
   )
 }
