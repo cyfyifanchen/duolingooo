@@ -6,8 +6,8 @@ import './globals.css'
 const font = Nunito({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'the awesome Duolingooo',
-  description: 'Elliott Chen',
+  title: 'Duolingooo',
+  description: 'The Duolingooo App',
 }
 
 export default function RootLayout({
