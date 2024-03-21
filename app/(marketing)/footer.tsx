@@ -12,12 +12,68 @@ export const Footer = () => {
         >
           <Image
             src="/hr.svg"
-            alt="Croation"
+            alt="Croatian"
             height={32}
             width={40}
             className="mr-4 rounded-md"
           />
-          Croation
+          Croatian
+        </Button>
+        <Button
+          size="lg"
+          variant="ghost"
+          className="w-full"
+        >
+          <Image
+            src="/es.svg"
+            alt="Spanish"
+            height={32}
+            width={40}
+            className="mr-4 rounded-md"
+          />
+          Spanish
+        </Button>
+        <Button
+          size="lg"
+          variant="ghost"
+          className="w-full"
+        >
+          <Image
+            src="/fr.svg"
+            alt="French"
+            height={32}
+            width={40}
+            className="mr-4 rounded-md"
+          />
+          French
+        </Button>
+        <Button
+          size="lg"
+          variant="ghost"
+          className="w-full"
+        >
+          <Image
+            src="/it.svg"
+            alt="Italian"
+            height={32}
+            width={40}
+            className="mr-4 rounded-md"
+          />
+          Italian
+        </Button>
+        <Button
+          size="lg"
+          variant="ghost"
+          className="w-full"
+        >
+          <Image
+            src="/jp.svg"
+            alt="Japanese"
+            height={32}
+            width={40}
+            className="mr-4 rounded-md"
+          />
+          Japanese
         </Button>
       </div>
     </footer>
