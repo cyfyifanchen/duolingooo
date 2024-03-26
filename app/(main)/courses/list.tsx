@@ -8,5 +8,5 @@ type Props = {
 }
 
 export const List = ({}: Props) => {
-  return <div className="">List</div>
+  return <div className="pt-6 grid grid-cols-2">List</div>
 }
