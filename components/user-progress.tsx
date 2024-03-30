@@ -1,32 +1,36 @@
 import Link from 'next/link'
-import { Button } from './ui/button'
 import Image from 'next/image'
 import { InfinityIcon } from 'lucide-react'
 
+import { courses } from '@/db/schema'
+import { Button } from '@/components/ui/button'
+
 type Props = {
-  activeCourse: { imageSrc: string; title: string } // TODO; Replace with DB types
+  activeCourse: typeof courses.$inferSelect
   hearts: number
-  points: number
-  hasActiveSUbscription: boolean
+  // points: number
+  hasActiveSubscription: boolean
 }
+
 export const UserProgress = ({
   activeCourse,
-  points,
+  // points,
   hearts,
-  hasActiveSUbscription,
+  hasActiveSubscription,
 }: Props) => {
   return (
-    <div className="flex item-center justify-between gap-x-2 w-full">
-      <Link href="/courses"></Link>
-      <Button variant="ghost">
-        <Image
-          src={activeCourse.imageSrc}
-          alt={activeCourse.title}
-          className="rounded-md border"
-          width={32}
-          height={32}
-        />
-      </Button>
+    <div className="flex items-center justify-between gap-x-2 w-full">
+      <Link href="/courses">
+        <Button variant="ghost">
+          <Image
+            src={activeCourse.imageSrc}
+            alt={activeCourse.title}
+            className="rounded-md border"
+            width={32}
+            height={32}
+          />
+        </Button>
+      </Link>
       <Link href="/shop">
         <Button
           variant="ghost"
@@ -39,7 +43,7 @@ export const UserProgress = ({
             alt="Points"
             className="mr-2"
           />
-          {points}
+          {/* {points} */}
         </Button>
       </Link>
       <Link href="/shop">
@@ -54,12 +58,11 @@ export const UserProgress = ({
             alt="Hearts"
             className="mr-2"
           />
-          {hasActiveSUbscription ? (
+          {hasActiveSubscription ? (
             <InfinityIcon className="h-4 w-4 stroke-[3]" />
           ) : (
             hearts
           )}
-          {points}
         </Button>
       </Link>
     </div>
