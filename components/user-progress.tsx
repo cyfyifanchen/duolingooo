@@ -8,13 +8,13 @@ import { Button } from '@/components/ui/button'
 type Props = {
   activeCourse: typeof courses.$inferSelect
   hearts: number
-  // points: number
+  points: number
   hasActiveSubscription: boolean
 }
 
 export const UserProgress = ({
   activeCourse,
-  // points,
+  points,
   hearts,
   hasActiveSubscription,
 }: Props) => {
@@ -43,7 +43,7 @@ export const UserProgress = ({
             alt="Points"
             className="mr-2"
           />
-          {/* {points} */}
+          {points}
         </Button>
       </Link>
       <Link href="/shop">
