@@ -28,7 +28,7 @@ export const Sidebar = ({ className }: Props) => {
             alt="Mascot"
           />
           <h1 className="text-2xl font-extrabold text-green-600 tracking-wide">
-            Lingo
+            Duolingooo
           </h1>
         </div>
       </Link>
