@@ -9,7 +9,27 @@ export const courses = pgTable('courses', {
 
 export const coursesRelations = relations(courses, ({ many }) => ({
   userProgress: many(userProgress),
+  units: many(units),
 }))
+
+export const units = pgTable('units', {
+  id: serial('id').primaryKey(),
+  title: text('title').notNull(),
+  description: text('description').notNull(),
+  courseId: integer('course_id')
+    .references(() => courses.id, { onDelete: 'cascade' })
+    .notNull(),
+  order: integer('order').notNull(),
+})
+
+const unitRelations = relations(units, ({ many, one }) => ({
+  course: one(courses, {
+    fields: [units.courseId],
+    references: [courses.id],
+  }),
+}))
+
+// const
 
 export const userProgress = pgTable('user_progress', {
   userId: text('user_id').primaryKey(),

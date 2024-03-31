@@ -21,7 +21,7 @@ const LearnPage = async () => {
   return (
     <div className="flex gap-[48px] px-6">
       <FeedWrapper>
-        <Header title="Spanish" />
+        <Header title={userProgress.activeCourse.title} />
       </FeedWrapper>
       <StickyWrapper>
         <UserProgress
