@@ -1,5 +1,6 @@
+import { Nunito } from 'next/font/google'
 import { relations } from 'drizzle-orm'
-import { integer, pgTable, serial, text } from 'drizzle-orm/pg-core'
+import { integer, pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core'
 
 export const courses = pgTable('courses', {
   id: serial('id').primaryKey(),
@@ -41,11 +42,16 @@ export const lessons = pgTable('lessons', {
   order: integer('order').notNull(),
 })
 
+export const challengesEnum = pgEnum('type', ['SELECT', 'ASSIST'])
+
 export const challenges = pgTable('challenges', {
   id: serial('id').primaryKey(),
   lessonId: integer('lesson_id')
     .references(() => lessons.id, { onDelete: 'cascade' })
     .notNull(),
+  type: challengesEnum('type').notNull(),
+  question: text('question').notNull(),
+  order: integer('order').notNull(),
 })
 
 export const lessonsRelations = relations(lessons, ({ one, many }) => ({
@@ -53,7 +59,24 @@ export const lessonsRelations = relations(lessons, ({ one, many }) => ({
     fields: [lessons.unitId],
     references: [units.id],
   }),
+  challenges: many(challenges),
 }))
+
+export const challengesRelations = relations(challenges, ({ one, many }) => ({
+  lessons: one(lessons, {
+    fields: [challenges.lessonId],
+    references: [lessons.id],
+  }),
+}))
+
+export const challengeOptions = pgTable('challengeOptions', {
+  id: serial('id').primaryKey(),
+  challengeId: integer('challenge_id')
+    .references(() => challenges.id, { onDelete: 'cascade' })
+    .notNull(),
+  text: text('text').notNull(),
+  correct: boolean('correct').notNull(),
+})
 
 export const userProgress = pgTable('user_progress', {
   userId: text('user_id').primaryKey(),
