@@ -100,6 +100,14 @@ const main = async () => {
         text: 'la mujer',
         audioSrc: '/es_woman.mp3',
       },
+      {
+        id: 3,
+        challengeId: 1,
+        imageSrc: '/robot.svg',
+        correct: false,
+        text: 'el robot',
+        audioSrc: '/es_robot.mp3',
+      },
     ])
 
     console.log('seeding finished')
