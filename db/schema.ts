@@ -1,6 +1,13 @@
 import { Nunito } from 'next/font/google'
 import { relations } from 'drizzle-orm'
-import { integer, pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core'
+import {
+  boolean,
+  integer,
+  pgEnum,
+  pgTable,
+  serial,
+  text,
+} from 'drizzle-orm/pg-core'
 
 export const courses = pgTable('courses', {
   id: serial('id').primaryKey(),
@@ -67,6 +74,7 @@ export const challengesRelations = relations(challenges, ({ one, many }) => ({
     fields: [challenges.lessonId],
     references: [lessons.id],
   }),
+  challengeOptions: many(challengeOptions),
 }))
 
 export const challengeOptions = pgTable('challengeOptions', {
@@ -76,7 +84,19 @@ export const challengeOptions = pgTable('challengeOptions', {
     .notNull(),
   text: text('text').notNull(),
   correct: boolean('correct').notNull(),
+  imageSrc: text('image_src'),
+  audioSrc: text('audio_src'),
 })
+
+export const challengeOptionsRelations = relations(
+  challengeOptions,
+  ({ one }) => ({
+    challenge: one(challenges, {
+      fields: [challengeOptions.challengeId],
+      references: [challenges.id],
+    }),
+  })
+)
 
 export const userProgress = pgTable('user_progress', {
   userId: text('user_id').primaryKey(),
