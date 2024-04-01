@@ -57,12 +57,12 @@ const main = async () => {
         order: 1,
         title: 'Nouns',
       },
-      {
-        id: 2,
-        unitId: 1,
-        order: 2,
-        title: 'Verbs',
-      },
+      // {
+      //   id: 2,
+      //   unitId: 1,
+      //   order: 2,
+      //   title: 'Verbs',
+      // },
     ])
 
     await db.insert(schema.challenges).values([
@@ -73,14 +73,15 @@ const main = async () => {
         order: 1,
         question: 'Which one of these is the "the man"?',
       },
-      {
-        id: 2,
-        lessonId: 2, // Verbs
-        type: 'SELECT',
-        order: 2,
-        question: 'Which one of these is the "the man"?',
-      },
+      // {
+      //   id: 2,
+      //   lessonId: 2, // Verbs
+      //   type: 'SELECT',
+      //   order: 2,
+      //   question: 'Which one of these is the "the man"?',
+      // },
     ])
+
     console.log('seeding finished')
   } catch (error) {
     console.error(error)
