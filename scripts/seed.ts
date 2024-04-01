@@ -92,6 +92,14 @@ const main = async () => {
         text: 'el hombre',
         audioSrc: '/es_man.mp3',
       },
+      {
+        id: 2,
+        challengeId: 1,
+        imageSrc: '/woman.svg',
+        correct: false,
+        text: 'la mujer',
+        audioSrc: '/es_woman.mp3',
+      },
     ])
 
     console.log('seeding finished')
