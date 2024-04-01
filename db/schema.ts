@@ -56,8 +56,6 @@ export const lessonsRelations = relations(lessons, ({ one, many }) => ({
   challenges: many(challenges),
 }))
 
-export const challengesEnum = pgEnum('type', ['SELECT', 'ASSIST'])
-
 export const challenges = pgTable('challenges', {
   id: serial('id').primaryKey(),
   lessonId: integer('lesson_id')
@@ -67,6 +65,8 @@ export const challenges = pgTable('challenges', {
   question: text('question').notNull(),
   order: integer('order').notNull(),
 })
+
+export const challengesEnum = pgEnum('type', ['SELECT', 'ASSIST'])
 
 export const challengesRelations = relations(challenges, ({ one, many }) => ({
   lessons: one(lessons, {
