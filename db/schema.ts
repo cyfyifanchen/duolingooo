@@ -48,6 +48,14 @@ export const lessons = pgTable('lessons', {
   order: integer('order').notNull(),
 })
 
+export const lessonsRelations = relations(lessons, ({ one, many }) => ({
+  unit: one(units, {
+    fields: [lessons.unitId],
+    references: [units.id],
+  }),
+  challenges: many(challenges),
+}))
+
 export const challengesEnum = pgEnum('type', ['SELECT', 'ASSIST'])
 
 export const challenges = pgTable('challenges', {
@@ -59,14 +67,6 @@ export const challenges = pgTable('challenges', {
   question: text('question').notNull(),
   order: integer('order').notNull(),
 })
-
-export const lessonsRelations = relations(lessons, ({ one, many }) => ({
-  unit: one(units, {
-    fields: [lessons.unitId],
-    references: [units.id],
-  }),
-  challenges: many(challenges),
-}))
 
 export const challengesRelations = relations(challenges, ({ one, many }) => ({
   lessons: one(lessons, {
