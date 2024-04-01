@@ -64,6 +64,23 @@ const main = async () => {
         title: 'Verbs',
       },
     ])
+
+    await db.insert(schema.challenges).values([
+      {
+        id: 1,
+        lessonId: 1, // Nouns
+        type: 'SELECT',
+        order: 1,
+        question: 'Which one of these is the "the man"?',
+      },
+      {
+        id: 2,
+        lessonId: 2, // Verbs
+        type: 'SELECT',
+        order: 2,
+        question: 'Which one of these is the "the man"?',
+      },
+    ])
     console.log('seeding finished')
   } catch (error) {
     console.error(error)
