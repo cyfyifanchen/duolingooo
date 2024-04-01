@@ -1,3 +1,4 @@
+import { challengesEnum } from './../db/schema'
 import 'dotenv/config'
 import { drizzle } from 'drizzle-orm/neon-http'
 import { neon } from '@neondatabase/serverless'
@@ -80,6 +81,17 @@ const main = async () => {
       //   order: 2,
       //   question: 'Which one of these is the "the man"?',
       // },
+    ])
+
+    await db.insert(schema.challengeOptions).values([
+      {
+        id: 1,
+        challengeId: 1,
+        imageSrc: '/man.svg',
+        correct: true,
+        text: 'el hombre',
+        audioSrc: '/es_man.mp3',
+      },
     ])
 
     console.log('seeding finished')
