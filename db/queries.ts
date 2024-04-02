@@ -1,3 +1,4 @@
+import { lessons } from './schema'
 import { units, userProgress, courses } from '@/db/schema'
 import { cache } from 'react'
 import db from './drizzle'
@@ -55,10 +56,12 @@ export const getUnits = cache(async () => {
           challenge.challengeProgress.every((progress) => progress.completed)
         )
       })
-
       return { ...lesson, completed: allCompletedChallenges }
     })
+    return { ...unit, lessons: lessonsWithCompletedStatus }
   })
+
+  return normalizedData
 })
 
 export const getCourseById = cache(async (courseId: number) => {
