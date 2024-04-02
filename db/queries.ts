@@ -1,8 +1,7 @@
-import { units, userProgress } from '@/db/schema'
+import { units, userProgress, courses } from '@/db/schema'
 import { cache } from 'react'
 import db from './drizzle'
 import { auth } from '@clerk/nextjs'
-import { courses, userProgress } from './schema'
 import { eq } from 'drizzle-orm'
 
 export const getCourses = cache(async () => {
