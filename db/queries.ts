@@ -122,7 +122,9 @@ export const getCourseProgress = cache(async () => {
 export const getLesson = cache(async (id?: number) => {
   const { userId } = await auth()
 
-  if (!userId) return null
+  if (!userId) {
+    return null
+  }
 
   const courseProgress = await getCourseProgress()
 
@@ -130,7 +132,7 @@ export const getLesson = cache(async (id?: number) => {
 
   if (!lessonId) return null
 
-  const data = await db.query.lessons.findMany({
+  const data = await db.query.lessons.findFirst({
     where: eq(lessons.id, lessonId),
     with: {
       challenges: {
@@ -149,6 +151,31 @@ export const getLesson = cache(async (id?: number) => {
 
   const normalizedChallenges = data.challenges.map((challenge) => {
     const completed =
-      challenge.challengeProgress && challenge.challengeProgress.length > 0
+      challenge.challengeProgress &&
+      challenge.challengeProgress.length > 0 &&
+      challenge.challengeProgress.every((progress) => progress.completed)
+
+    return { ...challenge, completed }
   })
+
+  return { ...data, challenges: normalizedChallenges }
+})
+
+export const getLessonPercentage = cache(async () => {
+  const courseProgress = await getCourseProgress()
+
+  if (!courseProgress?.activeLessonId) return 0
+
+  const lesson = await getLesson(courseProgress.activeLessonId)
+
+  if (!lesson) return 0
+
+  const completedChallenges = lesson.challenges.filter(
+    (challenge) => challenge.completed
+  )
+  const percentage = Math.round(
+    (completedChallenges.length / lesson.challenges.length) * 100
+  )
+
+  return percentage
 })
