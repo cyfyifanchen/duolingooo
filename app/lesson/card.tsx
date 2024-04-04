@@ -1,4 +1,5 @@
 import { challenges } from '@/db/schema'
+import { cn } from '@/lib/utils'
 
 type Props = {
   id: number
@@ -25,5 +26,14 @@ export const Card = ({
   type,
   disabled,
 }: Props) => {
-  return <div className="">Card</div>
+  return (
+    <div
+      className={cn(
+        'h-full border-2 rounded-xl border-b-4 hover:bg-black/5 p-4 lg:p-6 cursor-pointer active:border-b-2'
+      )}
+      onClick={() => {}}
+    >
+      Card
+    </div>
+  )
 }
