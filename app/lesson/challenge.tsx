@@ -1,4 +1,5 @@
 import { challengeOptions, challenges } from '@/db/schema'
+import { cn } from '@/lib/utils'
 
 type Props = {
   options: (typeof challengeOptions.$inferSelect)[]
@@ -17,5 +18,16 @@ export const Challenge = ({
   disabled,
   type,
 }: Props) => {
-  return <div className="">Challenge</div>
+  return (
+    <div
+      className={cn(
+        'grid gap-2',
+        type === 'ASSIST' && 'grid-cols-1',
+        type === 'SELECT' &&
+          'grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]'
+      )}
+    >
+      Challenge
+    </div>
+  )
 }
