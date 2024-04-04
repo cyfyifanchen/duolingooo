@@ -63,17 +63,19 @@ export const Quiz = ({
             <h1 className="text-lg lg:text-3xl text-center lg:text-start font-bold text-neutral-700">
               {title}
             </h1>
-            {challenge.type === 'ASSIST' && (
-              <QuestionBubble question={challenge.question} />
-            )}
-            <Challenge
-              options={options}
-              onSelect={onSelect}
-              status="none"
-              selectedOption={selectedOption}
-              disabled={false}
-              type={challenge.type}
-            />
+            <div>
+              {challenge.type === 'ASSIST' && (
+                <QuestionBubble question={challenge.question} />
+              )}
+              <Challenge
+                options={options}
+                onSelect={onSelect}
+                status="none"
+                selectedOption={selectedOption}
+                disabled={false}
+                type={challenge.type}
+              />
+            </div>
           </div>
         </div>
       </div>
