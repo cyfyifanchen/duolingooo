@@ -1,14 +1,16 @@
 'use client'
 
-import { challengeOptions, challenges } from '@/db/schema'
-import { useState, useTransition } from 'react'
-import { Header } from './header'
-import { QuestionBubble } from './question-bubble'
-import { Challenge } from './challenge'
-import { Footer } from './footer'
-import { upsertChallengeProgress } from '@/actions/challenge-progress'
 import { toast } from 'sonner'
+import { useState, useTransition } from 'react'
+
 import { reduceHearts } from '@/actions/user-progress'
+import { challengeOptions, challenges } from '@/db/schema'
+import { upsertChallengeProgress } from '@/actions/challenge-progress'
+
+import { Header } from './header'
+import { Footer } from './footer'
+import { Challenge } from './challenge'
+import { QuestionBubble } from './question-bubble'
 
 type Props = {
   initialPercentage: number
@@ -18,7 +20,7 @@ type Props = {
     completed: boolean
     challengeOptions: (typeof challengeOptions.$inferSelect)[]
   })[]
-  userSubscription: any
+  userSubscription: any // TODO: Replace with subscription DB type
 }
 
 export const Quiz = ({
@@ -59,6 +61,12 @@ export const Quiz = ({
   const onContinue = () => {
     if (!selectedOption) return
 
+    if (status === 'wrong') {
+      setStatus('none')
+      setSelectedOption(undefined)
+      return
+    }
+
     if (status === 'correct') {
       onNext()
       setStatus('none')
@@ -66,17 +74,13 @@ export const Quiz = ({
       return
     }
 
-    if (status === 'wrong') {
-      setStatus('none')
-      setSelectedOption(undefined)
+    const correctOption = options.find((option) => option.correct)
+
+    if (!correctOption) {
       return
     }
 
-    const correctOption = options.find((option) => option.correct)
-
-    if (!correctOption) return
-
-    if (correctOption && correctOption.id === selectedOption) {
+    if (correctOption.id === selectedOption) {
       startTransition(() => {
         upsertChallengeProgress(challenge.id)
           .then((response) => {
@@ -93,7 +97,7 @@ export const Quiz = ({
               setHearts((prev) => Math.min(prev + 1, 5))
             }
           })
-          .catch(() => toast.error('Something went wrong, please try again.'))
+          .catch(() => toast.error('Something went wrong. Please try again.'))
       })
     } else {
       startTransition(() => {
@@ -110,14 +114,16 @@ export const Quiz = ({
               setHearts((prev) => Math.max(prev - 1, 0))
             }
           })
-          .catch(() => toast.error('Something went wrong, please try again.'))
+          .catch(() => toast.error('Something went wrong. Please try again.'))
       })
     }
   }
+
   const title =
     challenge.type === 'ASSIST'
       ? 'Select the correct meaning'
       : challenge.question
+
   return (
     <>
       <Header
@@ -138,7 +144,7 @@ export const Quiz = ({
               <Challenge
                 options={options}
                 onSelect={onSelect}
-                status="none"
+                status={status}
                 selectedOption={selectedOption}
                 disabled={pending}
                 type={challenge.type}

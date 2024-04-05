@@ -1,25 +1,34 @@
 'use server'
 
-import db from '@/db/drizzle'
-import { getUserProgress } from '@/db/queries'
-import { challengeProgress, challenges, userProgress } from '@/db/schema'
-import { auth, currentUser } from '@clerk/nextjs'
+import { auth } from '@clerk/nextjs'
 import { and, eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 
+import db from '@/db/drizzle'
+import { getUserProgress } from '@/db/queries'
+import { challengeProgress, challenges, userProgress } from '@/db/schema'
+
 export const upsertChallengeProgress = async (challengeId: number) => {
   const { userId } = await auth()
-  if (!userId) throw new Error('Unauthorized')
+
+  if (!userId) {
+    throw new Error('Unauthorized')
+  }
 
   const currentUserProgress = await getUserProgress()
+  // TODO: Handle subscription query later
 
-  if (!currentUserProgress) throw new Error('User progress not found.')
+  if (!currentUserProgress) {
+    throw new Error('User progress not found')
+  }
 
   const challenge = await db.query.challenges.findFirst({
     where: eq(challenges.id, challengeId),
   })
 
-  if (!challenge) throw new Error('Challenge not found.')
+  if (!challenge) {
+    throw new Error('Challenge not found')
+  }
 
   const lessonId = challenge.lessonId
 
@@ -32,11 +41,9 @@ export const upsertChallengeProgress = async (challengeId: number) => {
 
   const isPractice = !!existingChallengeProgress
 
-  // TODO: not if a user has a subscription
+  // TODO: Not if user has a subscription
   if (currentUserProgress.hearts === 0 && !isPractice) {
-    return {
-      error: 'hearts',
-    }
+    return { error: 'hearts' }
   }
 
   if (isPractice) {
@@ -46,6 +53,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
         completed: true,
       })
       .where(eq(challengeProgress.id, existingChallengeProgress.id))
+
     await db
       .update(userProgress)
       .set({
@@ -55,11 +63,10 @@ export const upsertChallengeProgress = async (challengeId: number) => {
       .where(eq(userProgress.userId, userId))
 
     revalidatePath('/learn')
-    revalidatePath('lesson')
+    revalidatePath('/lesson')
     revalidatePath('/quests')
     revalidatePath('/leaderboard')
     revalidatePath(`/lesson/${lessonId}`)
-
     return
   }
 
@@ -77,7 +84,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
     .where(eq(userProgress.userId, userId))
 
   revalidatePath('/learn')
-  revalidatePath('lesson')
+  revalidatePath('/lesson')
   revalidatePath('/quests')
   revalidatePath('/leaderboard')
   revalidatePath(`/lesson/${lessonId}`)

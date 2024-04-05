@@ -1,19 +1,19 @@
 'use server'
 
+import { and, eq } from 'drizzle-orm'
+import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
+import { auth, currentUser } from '@clerk/nextjs'
+
 import db from '@/db/drizzle'
 import { getCourseById, getUserProgress } from '@/db/queries'
 import { challengeProgress, challenges, userProgress } from '@/db/schema'
-import { auth, currentUser } from '@clerk/nextjs'
-import { and, eq } from 'drizzle-orm'
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 
 export const upsertUserProgress = async (courseId: number) => {
   const { userId } = await auth()
   const user = await currentUser()
 
   if (!userId || !user) {
-    // whenever working with Server Action, behave like an API
     throw new Error('Unauthorized')
   }
 
@@ -23,8 +23,9 @@ export const upsertUserProgress = async (courseId: number) => {
     throw new Error('Course not found')
   }
 
+  // TODO: Enable once units and lessons are added
   // if (!course.units.length || !course.units[0].lessons.length) {
-  //   throw new Error('Course is empty')
+  //   throw new Error("Course is empty");
   // }
 
   const existingUserProgress = await getUserProgress()
@@ -56,7 +57,9 @@ export const upsertUserProgress = async (courseId: number) => {
 export const reduceHearts = async (challengeId: number) => {
   const { userId } = await auth()
 
-  if (!userId) throw new Error('Unauthorized')
+  if (!userId) {
+    throw new Error('Unauthorized')
+  }
 
   const currentUserProgress = await getUserProgress()
   // TODO: Get user subscription
@@ -66,12 +69,12 @@ export const reduceHearts = async (challengeId: number) => {
   })
 
   if (!challenge) {
-    throw Error('Challenge not found')
+    throw new Error('Challenge not found')
   }
 
   const lessonId = challenge.lessonId
 
-  const existingChallengeProgress = db.query.challengeProgress.findFirst({
+  const existingChallengeProgress = await db.query.challengeProgress.findFirst({
     where: and(
       eq(challengeProgress.userId, userId),
       eq(challengeProgress.challengeId, challengeId)
@@ -80,10 +83,13 @@ export const reduceHearts = async (challengeId: number) => {
 
   const isPractice = !!existingChallengeProgress
 
-  // Normal API response
-  if (isPractice) return { error: 'practice' }
+  if (isPractice) {
+    return { error: 'practice' }
+  }
 
-  if (!currentUserProgress) throw new Error('User progress not found')
+  if (!currentUserProgress) {
+    throw new Error('User progress not found')
+  }
 
   // TODO: Handle subscription
 
