@@ -30,4 +30,20 @@ export const upsertChallengeProgress = async (challengeId: number) => {
   })
 
   const isPractice = !!existingChallengeProgress
+
+  // TODO: not if a user has a subscription
+  if (currentUserProgress.hearts === 0 && !isPractice) {
+    return {
+      error: 'hearts',
+    }
+  }
+
+  if (isPractice) {
+    await db
+      .update(challengeProgress)
+      .set({
+        completed: true,
+      })
+      .where(eq(challengeProgress.id, existingChallengeProgress.id))
+  }
 }
