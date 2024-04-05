@@ -110,7 +110,6 @@ const main = async () => {
 
     await db.insert(schema.challengeOptions).values([
       {
-        id: 1,
         challengeId: 1,
         imageSrc: '/man.svg',
         correct: true,
@@ -118,7 +117,6 @@ const main = async () => {
         audioSrc: '/es_man.mp3',
       },
       {
-        id: 2,
         challengeId: 1,
         imageSrc: '/woman.svg',
         correct: false,
@@ -126,7 +124,6 @@ const main = async () => {
         audioSrc: '/es_woman.mp3',
       },
       {
-        id: 3,
         challengeId: 1,
         imageSrc: '/robot.svg',
         correct: false,
@@ -137,21 +134,18 @@ const main = async () => {
 
     await db.insert(schema.challengeOptions).values([
       {
-        id: 4,
         challengeId: 2, // "the man"?
         correct: true,
         text: 'el hombre',
         audioSrc: '/es_man.mp3',
       },
       {
-        id: 5,
         challengeId: 2,
         correct: false,
         text: 'la mujer',
         audioSrc: '/es_woman.mp3',
       },
       {
-        id: 6,
         challengeId: 2,
         correct: false,
         text: 'el robot',
@@ -161,7 +155,6 @@ const main = async () => {
 
     await db.insert(schema.challengeOptions).values([
       {
-        id: 1,
         challengeId: 3, // 'Which one of these is the "the robot"?'
         imageSrc: '/man.svg',
         correct: false,
@@ -169,7 +162,6 @@ const main = async () => {
         audioSrc: '/es_man.mp3',
       },
       {
-        id: 2,
         challengeId: 3,
         imageSrc: '/woman.svg',
         correct: false,
@@ -177,7 +169,6 @@ const main = async () => {
         audioSrc: '/es_woman.mp3',
       },
       {
-        id: 3,
         challengeId: 3,
         imageSrc: '/robot.svg',
         correct: true,
