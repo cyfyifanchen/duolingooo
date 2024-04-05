@@ -2,7 +2,7 @@
 
 import db from '@/db/drizzle'
 import { getUserProgress } from '@/db/queries'
-import { challengeProgress, challenges } from '@/db/schema'
+import { challengeProgress, challenges, userProgress } from '@/db/schema'
 import { auth } from '@clerk/nextjs'
 import { and, eq } from 'drizzle-orm'
 
@@ -46,4 +46,12 @@ export const upsertChallengeProgress = async (challengeId: number) => {
       })
       .where(eq(challengeProgress.id, existingChallengeProgress.id))
   }
+
+  await db
+    .update(userProgress)
+    .set({
+      hearts: Math.min(currentUserProgress.hearts + 1, 5),
+      points: currentUserProgress.points + 10,
+    })
+    .where(eq(userProgress.userId, userId))
 }
