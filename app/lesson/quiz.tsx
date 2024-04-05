@@ -124,7 +124,7 @@ export const Quiz = ({
                 onSelect={onSelect}
                 status="none"
                 selectedOption={selectedOption}
-                disabled={false}
+                disabled={pending}
                 type={challenge.type}
               />
             </div>
@@ -132,7 +132,7 @@ export const Quiz = ({
         </div>
       </div>
       <Footer
-        disabled={!selectedOption}
+        disabled={pending || !selectedOption}
         status={status}
         onCheck={onContinue}
       />
