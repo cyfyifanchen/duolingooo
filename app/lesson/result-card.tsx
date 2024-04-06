@@ -24,6 +24,13 @@ export const ResultCard = ({ value, variant }: Props) => {
       >
         {variant === 'hearts' ? 'Hearts Left' : 'Total XP'}
       </div>
+      <div
+        className={cn(
+          'rounded-2xl bg-white items-center flex justify-center p-6 font-bold text-lg'
+        )}
+      >
+        {value}
+      </div>
     </div>
   )
 }
