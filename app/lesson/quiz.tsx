@@ -125,6 +125,10 @@ export const Quiz = ({
     }
   }
 
+  if (!challenge) {
+    return <div className="">Finish the challenge</div>
+  }
+
   const title =
     challenge.type === 'ASSIST'
       ? 'Select the correct meaning'
