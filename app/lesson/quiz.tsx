@@ -10,6 +10,7 @@ import { Footer } from './footer'
 import { Challenge } from './challenge'
 import { QuestionBubble } from './question-bubble'
 import { useAudio } from 'react-use'
+import Image from 'next/image'
 
 type Props = {
   initialPercentage: number
@@ -125,8 +126,34 @@ export const Quiz = ({
     }
   }
 
-  if (!challenge) {
-    return <div className="">Finish the challenge</div>
+  if (true || !challenge) {
+    return (
+      <>
+        <div className="flex flex-col gap-y-4 lg:gap-y-8 text-center items-center justify-center h-full">
+          <Image
+            src="/finish.svg"
+            alt="Finish"
+            className="hidden lg:block"
+            height={100}
+            width={100}
+          />
+          <Image
+            src="/finish.svg"
+            alt="Finish"
+            className="block lg:hidden"
+            height={50}
+            width={50}
+          />
+          <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">
+            Great job <br />
+            You've completed the lesson.
+          </h1>
+          <div className="flex items-center gap-x-4 w-full">
+            <ResultCard />
+          </div>
+        </div>
+      </>
+    )
   }
 
   const title =
