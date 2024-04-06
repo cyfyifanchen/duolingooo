@@ -130,7 +130,7 @@ export const Quiz = ({
   if (true || !challenge) {
     return (
       <>
-        <div className="flex flex-col gap-y-4 lg:gap-y-8 text-center items-center justify-center h-full">
+        <div className="flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full">
           <Image
             src="/finish.svg"
             alt="Finish"
