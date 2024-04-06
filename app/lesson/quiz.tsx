@@ -12,6 +12,7 @@ import { QuestionBubble } from './question-bubble'
 import { useAudio } from 'react-use'
 import Image from 'next/image'
 import { ResultCard } from './result-card'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   initialPercentage: number
@@ -166,7 +167,7 @@ export const Quiz = ({
         <Footer
           lessonId={lessonId}
           status="completed"
-          onCheck={() => {}}
+          onCheck={() => router.push('/learn')}
         />
       </>
     )
