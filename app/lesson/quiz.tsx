@@ -36,6 +36,7 @@ export const Quiz = ({
   const { width, height } = useWindowSize()
 
   const router = useRouter()
+  const [finishAudio] = useAudio({ src: '/finish.mp3', autoPlay: true })
 
   const [correctAudio, _c, correctControls] = useAudio({ src: '/correct.wav' })
   const [incorrectAudio, _i, incorrectControls] = useAudio({
@@ -137,6 +138,7 @@ export const Quiz = ({
   if (true || !challenge) {
     return (
       <>
+        {finishAudio}
         <Confetti
           width={width}
           height={height}
