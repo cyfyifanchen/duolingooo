@@ -7,6 +7,8 @@ type Props = {
 }
 
 export const ResultCard = ({ value, variant }: Props) => {
+  const imageSrc = variant === 'points' ? '/points.svg' : '/heart.svg'
+
   return (
     <div
       className={cn(
@@ -26,9 +28,18 @@ export const ResultCard = ({ value, variant }: Props) => {
       </div>
       <div
         className={cn(
-          'rounded-2xl bg-white items-center flex justify-center p-6 font-bold text-lg'
+          'rounded-2xl bg-white items-center flex justify-center p-6 font-bold text-lg',
+          variant === 'hearts' && 'text-rose-500',
+          variant === 'points' && 'text-orange-400'
         )}
       >
+        <Image
+          alt="icon"
+          src={imageSrc}
+          height={30}
+          width={30}
+          className="mr-1.5"
+        />
         {value}
       </div>
     </div>
