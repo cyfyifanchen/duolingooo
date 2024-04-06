@@ -31,6 +31,8 @@ export const Quiz = ({
   initialLessonChallenges,
   userSubscription,
 }: Props) => {
+  const router = useRouter()
+
   const [correctAudio, _c, correctControls] = useAudio({ src: '/correct.wav' })
   const [incorrectAudio, _i, incorrectControls] = useAudio({
     src: '/incorrect.wav',
@@ -38,6 +40,7 @@ export const Quiz = ({
 
   const [pending, startTransition] = useTransition()
 
+  const [lessonId, setLessonId] = useState(initialLessonId)
   const [hearts, setHearts] = useState(initialHearts)
   const [percentage, setPercentage] = useState(initialPercentage)
   const [challenges] = useState(initialLessonChallenges)
@@ -160,6 +163,11 @@ export const Quiz = ({
             />
           </div>
         </div>
+        <Footer
+          lessonId={lessonId}
+          status="completed"
+          onCheck={() => {}}
+        />
       </>
     )
   }
