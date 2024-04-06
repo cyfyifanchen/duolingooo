@@ -11,6 +11,7 @@ import { Challenge } from './challenge'
 import { QuestionBubble } from './question-bubble'
 import { useAudio } from 'react-use'
 import Image from 'next/image'
+import { ResultCard } from './result-card'
 
 type Props = {
   initialPercentage: number
@@ -149,7 +150,10 @@ export const Quiz = ({
             You've completed the lesson.
           </h1>
           <div className="flex items-center gap-x-4 w-full">
-            <ResultCard />
+            <ResultCard
+              variant="points"
+              value={challenges.length * 10}
+            />
           </div>
         </div>
       </>
