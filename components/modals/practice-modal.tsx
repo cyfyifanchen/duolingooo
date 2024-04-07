@@ -12,12 +12,12 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
-import { useHeartsModal } from '@/store/use-hearts-modal'
+import { usePracticeModal } from '@/store/use-practice-modal'
 
-export const HeartsModal = () => {
+export const PracticeModal = () => {
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
-  const { isOpen, close } = useHeartsModal()
+  const { isOpen, close } = usePracticeModal()
 
   useEffect(() => setIsClient(true), [])
 
