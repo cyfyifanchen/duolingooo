@@ -6,7 +6,7 @@ type PracticeModalState = {
   close: () => void
 }
 
-export const usePracticeState = create<PracticeModalState>((set) => ({
+export const usePracticeModal = create<PracticeModalState>((set) => ({
   isOpen: false,
   open: () => set({ isOpen: true }),
   close: () => set({ isOpen: false }),
