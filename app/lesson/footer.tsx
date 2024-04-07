@@ -39,6 +39,7 @@ export const Footer = ({ onCheck, status, disabled, lessonId }: Props) => {
           <Button
             variant="default"
             size={isMobile ? 'sm' : 'lg'}
+            // window.location.hre is a full refresh rather than using link.
             onClick={() => (window.location.href = `/lesson/${lessonId}`)}
           >
             Practice again
