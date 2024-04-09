@@ -39,7 +39,7 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
         </div>
         <Button
           onClick={onRefilHearts}
-          disabled={hearts === 5 || points < POSTS_TO_REFILL}
+          disabled={pending || hearts === 5 || points < POSTS_TO_REFILL}
         >
           {hearts === 5 ? (
             'full'
