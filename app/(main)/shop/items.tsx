@@ -24,7 +24,7 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
             Refill hearts
           </p>
         </div>
-        <Button>
+        <Button disabled={hearts === 5}>
           {hearts === 5 ? (
             'full'
           ) : (
