@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 
 type Props = {
@@ -18,6 +19,26 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
           height={60}
           width={60}
         />
+        <div className="flex-1">
+          <p className="text-neutral-700 text-base lg:text-xl font-bold">
+            Refill hearts
+          </p>
+        </div>
+        <Button>
+          {hearts === 5 ? (
+            'full'
+          ) : (
+            <div className="flex items-center">
+              <Image
+                src="/points.svg"
+                alt="Points"
+                height={20}
+                width={20}
+              />
+              <p>50</p>
+            </div>
+          )}
+        </Button>
       </div>
     </ul>
   )
