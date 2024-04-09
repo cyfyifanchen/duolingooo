@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+
 import {
   Dialog,
   DialogContent,
@@ -26,7 +27,9 @@ export const HeartsModal = () => {
     router.push('/store')
   }
 
-  if (!isClient) return null
+  if (!isClient) {
+    return null
+  }
 
   return (
     <Dialog

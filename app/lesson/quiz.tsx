@@ -1,21 +1,23 @@
 'use client'
 
 import { toast } from 'sonner'
+import Image from 'next/image'
 import Confetti from 'react-confetti'
+import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
+import { useAudio, useWindowSize, useMount } from 'react-use'
+
 import { reduceHearts } from '@/actions/user-progress'
+import { useHeartsModal } from '@/store/use-hearts-modal'
 import { challengeOptions, challenges } from '@/db/schema'
+import { usePracticeModal } from '@/store/use-practice-modal'
 import { upsertChallengeProgress } from '@/actions/challenge-progress'
+
 import { Header } from './header'
 import { Footer } from './footer'
 import { Challenge } from './challenge'
-import { QuestionBubble } from './question-bubble'
-import { useAudio, useWindowSize, useMount } from 'react-use'
-import Image from 'next/image'
 import { ResultCard } from './result-card'
-import { useRouter } from 'next/navigation'
-import { useHeartsModal } from '@/store/use-hearts-modal'
-import { usePracticeModal } from '@/store/use-practice-modal'
+import { QuestionBubble } from './question-bubble'
 
 type Props = {
   initialPercentage: number
@@ -47,16 +49,15 @@ export const Quiz = ({
   const { width, height } = useWindowSize()
 
   const router = useRouter()
-  const [finishAudio] = useAudio({ src: '/finish.mp3', autoPlay: true })
 
+  const [finishAudio] = useAudio({ src: '/finish.mp3', autoPlay: true })
   const [correctAudio, _c, correctControls] = useAudio({ src: '/correct.wav' })
   const [incorrectAudio, _i, incorrectControls] = useAudio({
     src: '/incorrect.wav',
   })
-
   const [pending, startTransition] = useTransition()
 
-  const [lessonId, setLessonId] = useState(initialLessonId)
+  const [lessonId] = useState(initialLessonId)
   const [hearts, setHearts] = useState(initialHearts)
   const [percentage, setPercentage] = useState(() => {
     return initialPercentage === 100 ? 0 : initialPercentage
@@ -175,8 +176,7 @@ export const Quiz = ({
             width={50}
           />
           <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">
-            Great job <br />
-            You've completed the lesson.
+            Great job! <br /> You&apos;ve completed the lesson.
           </h1>
           <div className="flex items-center gap-x-4 w-full">
             <ResultCard
@@ -205,8 +205,8 @@ export const Quiz = ({
 
   return (
     <>
-      {correctAudio}
       {incorrectAudio}
+      {correctAudio}
       <Header
         hearts={hearts}
         percentage={percentage}

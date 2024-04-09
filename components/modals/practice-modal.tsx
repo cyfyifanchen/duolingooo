@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+
 import {
   Dialog,
   DialogContent,
@@ -19,7 +20,9 @@ export const PracticeModal = () => {
 
   useEffect(() => setIsClient(true), [])
 
-  if (!isClient) return null
+  if (!isClient) {
+    return null
+  }
 
   return (
     <Dialog
@@ -37,10 +40,10 @@ export const PracticeModal = () => {
             />
           </div>
           <DialogTitle className="text-center font-bold text-2xl">
-            Practice lessons
+            Practice lesson
           </DialogTitle>
           <DialogDescription className="text-center text-base">
-            Use practice lessons to regin hearts and points. You cannot loose
+            Use practice lessons to regain hearts and points. You cannot loose
             hearts or points in practice lessons.
           </DialogDescription>
         </DialogHeader>
