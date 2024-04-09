@@ -113,4 +113,12 @@ export const reduceHearts = async (challengeId: number) => {
 
 export const refillHearts = async () => {
   const currentUserProgress = await getUserProgress()
+
+  if (!currentUserProgress) {
+    throw new Error('User progress not found.')
+  }
+
+  if (currentUserProgress.hearts === 5) {
+    throw new Error('Hearts are already full.')
+  }
 }
