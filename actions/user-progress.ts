@@ -8,6 +8,7 @@ import { auth, currentUser } from '@clerk/nextjs'
 import db from '@/db/drizzle'
 import { getCourseById, getUserProgress } from '@/db/queries'
 import { challengeProgress, challenges, userProgress } from '@/db/schema'
+import { POSTS_TO_REFILL } from '@/app/(main)/shop/items'
 
 export const upsertUserProgress = async (courseId: number) => {
   const { userId } = await auth()
@@ -120,5 +121,9 @@ export const refillHearts = async () => {
 
   if (currentUserProgress.hearts === 5) {
     throw new Error('Hearts are already full.')
+  }
+
+  if (currentUserProgress.points < POSTS_TO_REFILL) {
+    throw new Error('Not enough points')
   }
 }

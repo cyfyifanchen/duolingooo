@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { useTransition } from 'react'
 
-const POSTS_TO_REFILL = 10
+export const POSTS_TO_REFILL = 10
 
 type Props = {
   hearts: number
