@@ -3,6 +3,8 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 
+const POSTS_TO_REFILL = 10
+
 type Props = {
   hearts: number
   points: number
@@ -35,7 +37,7 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
                 height={20}
                 width={20}
               />
-              <p>50</p>
+              <p>{POSTS_TO_REFILL}</p>
             </div>
           )}
         </Button>
