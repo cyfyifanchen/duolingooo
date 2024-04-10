@@ -22,8 +22,9 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
       return
     }
 
-    startTransition(() => {})
-    refillHearts().catch(() => toast.error('Something went wrong'))
+    startTransition(() => {
+      refillHearts().catch(() => toast.error('Something went wrong'))
+    })
   }
 
   return (
