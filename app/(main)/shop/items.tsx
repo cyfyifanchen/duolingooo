@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useTransition } from 'react'
 import { toast } from 'sonner'
 
-export const POSTS_TO_REFILL = 10
+export const POINTS_TO_REFILL = 10
 
 type Props = {
   hearts: number
@@ -18,7 +18,7 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
   const [pending, startTransition] = useTransition()
 
   const onRefillHearts = () => {
-    if (pending || hearts === 5 || points < POSTS_TO_REFILL) {
+    if (pending || hearts === 5 || points < POINTS_TO_REFILL) {
       return
     }
 
@@ -43,7 +43,7 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
         </div>
         <Button
           onClick={onRefillHearts}
-          disabled={pending || hearts === 5 || points < POSTS_TO_REFILL}
+          disabled={pending || hearts === 5 || points < POINTS_TO_REFILL}
         >
           {hearts === 5 ? (
             'full'
@@ -55,7 +55,7 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
                 height={20}
                 width={20}
               />
-              <p>{POSTS_TO_REFILL}</p>
+              <p>{POINTS_TO_REFILL}</p>
             </div>
           )}
         </Button>

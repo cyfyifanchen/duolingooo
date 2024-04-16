@@ -8,7 +8,7 @@ import { auth, currentUser } from '@clerk/nextjs'
 import db from '@/db/drizzle'
 import { getCourseById, getUserProgress } from '@/db/queries'
 import { challengeProgress, challenges, userProgress } from '@/db/schema'
-import { POSTS_TO_REFILL } from '@/app/(main)/shop/items'
+import { POINTS_TO_REFILL } from '@/app/(main)/shop/items'
 
 export const upsertUserProgress = async (courseId: number) => {
   const { userId } = await auth()
@@ -116,15 +116,14 @@ export const refillHearts = async () => {
   const currentUserProgress = await getUserProgress()
 
   if (!currentUserProgress) {
-    throw new Error('User progress not found.')
+    throw new Error('User progress not found')
   }
-  console.log('here is he problem?')
 
   if (currentUserProgress.hearts === 5) {
-    throw new Error('Hearts are already full.')
+    throw new Error('Hearts are already full')
   }
 
-  if (currentUserProgress.points < POSTS_TO_REFILL) {
+  if (currentUserProgress.points < POINTS_TO_REFILL) {
     throw new Error('Not enough points')
   }
 
@@ -132,7 +131,7 @@ export const refillHearts = async () => {
     .update(userProgress)
     .set({
       hearts: 5,
-      points: currentUserProgress.points - POSTS_TO_REFILL,
+      points: currentUserProgress.points - POINTS_TO_REFILL,
     })
     .where(eq(userProgress.userId, currentUserProgress.userId))
 
