@@ -1,4 +1,9 @@
-import { challengeProgress, challenges, lessons } from './schema'
+import {
+  challengeProgress,
+  challenges,
+  lessons,
+  userSubscription,
+} from './schema'
 import { units, userProgress, courses } from '@/db/schema'
 import { cache } from 'react'
 import db from './drizzle'
@@ -179,4 +184,22 @@ export const getLessonPercentage = cache(async () => {
   )
 
   return percentage
+})
+
+const DAY_IN_MS = 86_400_000
+
+export const getUserSubscription = cache(async () => {
+  const { userId } = await auth()
+
+  if (!userId) return null
+
+  const data = await db.query.userSubscription.findFirst({
+    where: eq(userSubscription.userId, userId),
+  })
+
+  if (!data) return null
+
+  const isActive =
+    data.stripePriceId &&
+    data.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now()
 })
