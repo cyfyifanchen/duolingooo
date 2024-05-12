@@ -27,6 +27,10 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
     })
   }
 
+  const onUpgrade = () => {
+    startTransition(() => {})
+  }
+
   return (
     <ul className="w-full">
       <div className="flex items-center w-full p-4 gap-x-4 border-t-2">
@@ -68,8 +72,16 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
           src="/unlimited.svg"
         />
         <div className="flex-1">
-          <p>Unlimited hearts</p>
+          <p className="text-neutral-700 text-base lg:text-xl font-bold">
+            Unlimited hearts
+          </p>
         </div>
+        <Button
+          disabled={pending || hasActiveSubscription}
+          onClick={onUpgrade}
+        >
+          {hasActiveSubscription ? 'active' : 'upgrade'}
+        </Button>
       </div>
     </ul>
   )
