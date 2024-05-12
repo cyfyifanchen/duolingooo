@@ -19,6 +19,8 @@ const ShopPage = async () => {
     redirect('/courses')
   }
 
+  const isPro = !!userSubscription?.isActive
+
   return (
     <div className="flex flex-row-reverse gap-[48px] px-6">
       <StickyWrapper>
@@ -26,7 +28,7 @@ const ShopPage = async () => {
           activeCourse={userProgress.activeCourse}
           hearts={userProgress.hearts}
           points={userProgress.points}
-          hasActiveSubscription={!!userSubscription?.isActive}
+          hasActiveSubscription={isPro}
         />
       </StickyWrapper>
       <FeedWrapper>
