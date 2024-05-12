@@ -10,7 +10,10 @@ const ShopPage = async () => {
   const userProgressData = getUserProgress()
   const userSubscriptionData = getUserSubscription()
 
-  const [userProgress] = await Promise.all([userProgressData])
+  const [userProgress, userSubscription] = await Promise.all([
+    userProgressData,
+    userSubscriptionData,
+  ])
 
   if (!userProgress || !userProgress.activeCourse) {
     redirect('/courses')
@@ -23,7 +26,7 @@ const ShopPage = async () => {
           activeCourse={userProgress.activeCourse}
           hearts={userProgress.hearts}
           points={userProgress.points}
-          hasActiveSubscription={false}
+          hasActiveSubscription={!!userSubscription?.isActive}
         />
       </StickyWrapper>
       <FeedWrapper>
