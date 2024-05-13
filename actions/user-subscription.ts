@@ -1,10 +1,9 @@
-import { getUserSubscription } from '@/db/queries';
-import { userSubscription } from './../db/schema';
 'use server'
 
 import { absoluteUrl } from '@/lib/utils'
 import { auth, currentUser } from '@clerk/nextjs'
-import { stripe } from
+import { stripe } from '@/lib/stripe'
+import { getUserSubscription } from '@/db/queries'
 
 const returnUrl = absoluteUrl('/shop')
 
@@ -19,9 +18,9 @@ export const createStripeUrl = async () => {
   const userSubscription = await getUserSubscription()
 
   if (userSubscription && userSubscription.stripeCustomerId) {
-    const stripeSession = await stripe.BillingPortal.SessionsResource.create({
-      customer: userSubscription.stri
+    const stripeSession = await stripe.billingPortal.sessions.create({
+      customer: userSubscription.stripeCustomerId,
+      return_url: returnUrl,
     })
-
   }
 }
