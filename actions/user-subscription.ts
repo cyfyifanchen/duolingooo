@@ -1,10 +1,9 @@
-import { getUserSubscription } from '@/db/queries';
-import { userSubscription } from './../db/schema';
 'use server'
 
 import { absoluteUrl } from '@/lib/utils'
 import { auth, currentUser } from '@clerk/nextjs'
-import { stripe } from
+import { stripe } from '@/lib/stripe'
+import { getUserSubscription } from '@/db/queries'
 
 const returnUrl = absoluteUrl('/shop')
 
@@ -20,8 +19,34 @@ export const createStripeUrl = async () => {
 
   if (userSubscription && userSubscription.stripeCustomerId) {
     const stripeSession = await stripe.BillingPortal.SessionsResource.create({
-      customer: userSubscription.stri
+      customer: userSubscription.stripeCustomerId,
+      return_url: returnUrl,
     })
-
+    return { data: stripeSession.url }
   }
+
+  const stripeSession = await stripe.checkout.sessions.create({
+    mode: 'subscription',
+    payment_method_types: ['card'],
+    customer_email: user.emailAddresses[0].emailAddress,
+    line_items: [
+      {
+        quality: 1,
+        price_data: {
+          currency: 'USD',
+          product_data: {
+            name: 'Duolingooo Pro',
+            description: 'Unlimited Hearts',
+          },
+          unit_amount: 2000,
+          recurring: {
+            interval: 'month',
+          },
+        },
+      },
+    ],
+    metadata: {
+      userId,
+    },
+  })
 }
