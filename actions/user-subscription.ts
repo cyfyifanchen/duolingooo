@@ -48,5 +48,8 @@ export const createStripeUrl = async () => {
     metadata: {
       userId,
     },
+    success_url: returnUrl,
+    cancel_url: returnUrl,
   })
+  return { data: stripeSession.url }
 }
