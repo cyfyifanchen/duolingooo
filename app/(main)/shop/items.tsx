@@ -1,6 +1,7 @@
 'use client'
 
 import { refillHearts } from '@/actions/user-progress'
+import { createStripeUrl } from '@/actions/user-subscription'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { useTransition } from 'react'
@@ -28,7 +29,9 @@ export const Items = ({ hearts, points, hasActiveSubscription }: Props) => {
   }
 
   const onUpgrade = () => {
-    startTransition(() => {})
+    startTransition(() => {
+      createStripeUrl()
+    })
   }
 
   return (
