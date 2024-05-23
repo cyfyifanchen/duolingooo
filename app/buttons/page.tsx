@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 
-const ButtonPage = () => {
+const ButtonsPage = () => {
   return (
     <div className="p-4 space-y-4 flex flex-col max-w-[200px]">
       <Button>Default</Button>
@@ -19,4 +19,4 @@ const ButtonPage = () => {
   )
 }
 
-export default ButtonPage
+export default ButtonsPage

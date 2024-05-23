@@ -7,8 +7,8 @@ import { UserProgress } from '@/components/user-progress'
 import { StickyWrapper } from '@/components/sticky-wrapper'
 import { getUserProgress, getUserSubscription } from '@/db/queries'
 
-import { Items } from './items'
 import { Quests } from '@/components/quests'
+import { Items } from './items'
 
 const ShopPage = async () => {
   const userProgressData = getUserProgress()

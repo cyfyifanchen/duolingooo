@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+
 import {
   Dialog,
   DialogContent,
@@ -21,7 +22,9 @@ export const ExitModal = () => {
 
   useEffect(() => setIsClient(true), [])
 
-  if (!isClient) return null
+  if (!isClient) {
+    return null
+  }
 
   return (
     <Dialog

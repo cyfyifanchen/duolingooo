@@ -1,5 +1,6 @@
 import { useKey, useMedia } from 'react-use'
 import { CheckCircle, XCircle } from 'lucide-react'
+
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 
@@ -39,7 +40,6 @@ export const Footer = ({ onCheck, status, disabled, lessonId }: Props) => {
           <Button
             variant="default"
             size={isMobile ? 'sm' : 'lg'}
-            // window.location.hre is a full refresh rather than using link.
             onClick={() => (window.location.href = `/lesson/${lessonId}`)}
           >
             Practice again
