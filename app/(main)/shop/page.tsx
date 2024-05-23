@@ -1,10 +1,14 @@
-import { FeedWrapper } from '@/components/feed-wrapper'
-import { StickyWrapper } from '@/components/sticky-wrapper'
-import { UserProgress } from '@/components/user-progress'
-import { getUserProgress, getUserSubscription } from '@/db/queries'
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
+
+import { Promo } from '@/components/promo'
+import { FeedWrapper } from '@/components/feed-wrapper'
+import { UserProgress } from '@/components/user-progress'
+import { StickyWrapper } from '@/components/sticky-wrapper'
+import { getUserProgress, getUserSubscription } from '@/db/queries'
+
 import { Items } from './items'
+import { Quests } from '@/components/quests'
 
 const ShopPage = async () => {
   const userProgressData = getUserProgress()
@@ -30,6 +34,8 @@ const ShopPage = async () => {
           points={userProgress.points}
           hasActiveSubscription={isPro}
         />
+        {!isPro && <Promo />}
+        <Quests points={userProgress.points} />
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
@@ -43,12 +49,12 @@ const ShopPage = async () => {
             Shop
           </h1>
           <p className="text-muted-foreground text-center text-lg mb-6">
-            Spend your points on cool stuff
+            Spend your points on cool stuff.
           </p>
           <Items
             hearts={userProgress.hearts}
             points={userProgress.points}
-            hasActiveSubscription={false}
+            hasActiveSubscription={isPro}
           />
         </div>
       </FeedWrapper>
