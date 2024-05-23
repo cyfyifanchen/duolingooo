@@ -22,8 +22,8 @@ export const coursesRelations = relations(courses, ({ many }) => ({
 
 export const units = pgTable('units', {
   id: serial('id').primaryKey(),
-  title: text('title').notNull(),
-  description: text('description').notNull(),
+  title: text('title').notNull(), // Unit 1
+  description: text('description').notNull(), // Learn the basics of spanish
   courseId: integer('course_id')
     .references(() => courses.id, { onDelete: 'cascade' })
     .notNull(),
@@ -42,9 +42,7 @@ export const lessons = pgTable('lessons', {
   id: serial('id').primaryKey(),
   title: text('title').notNull(),
   unitId: integer('unit_id')
-    .references(() => units.id, {
-      onDelete: 'cascade',
-    })
+    .references(() => units.id, { onDelete: 'cascade' })
     .notNull(),
   order: integer('order').notNull(),
 })
@@ -70,7 +68,7 @@ export const challenges = pgTable('challenges', {
 })
 
 export const challengesRelations = relations(challenges, ({ one, many }) => ({
-  lessons: one(lessons, {
+  lesson: one(lessons, {
     fields: [challenges.lessonId],
     references: [lessons.id],
   }),
@@ -142,5 +140,5 @@ export const userSubscription = pgTable('user_subscription', {
   stripeCustomerId: text('stripe_customer_id').notNull().unique(),
   stripeSubscriptionId: text('stripe_subscription_id').notNull().unique(),
   stripePriceId: text('stripe_price_id').notNull(),
-  stripeCurrentPeriodEnd: timestamp('stripe_current_period_ent').notNull(),
+  stripeCurrentPeriodEnd: timestamp('stripe_current_period_end').notNull(),
 })
