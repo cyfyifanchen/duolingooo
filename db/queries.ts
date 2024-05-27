@@ -246,9 +246,7 @@ export const getUserSubscription = cache(async () => {
 export const getTopTenUsers = cache(async () => {
   const { userId } = await auth()
 
-  if (!userId) {
-    return []
-  }
+  if (!userId) return []
 
   const data = await db.query.userProgress.findMany({
     orderBy: (userProgress, { desc }) => [desc(userProgress.points)],
