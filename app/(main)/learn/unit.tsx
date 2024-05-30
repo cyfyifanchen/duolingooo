@@ -30,10 +30,7 @@ export const Unit = ({
 }: Props) => {
   return (
     <>
-      <UnitBanner
-        title={title}
-        description={description}
-      />
+      <UnitBanner title={title} description={description} />
       <div className="flex items-center flex-col relative">
         {lessons.map((lesson, index) => {
           const isCurrent = lesson.id === activeLesson?.id

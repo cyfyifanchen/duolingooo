@@ -37,12 +37,7 @@ const QuestsPage = async () => {
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
-          <Image
-            src="/quests.svg"
-            alt="Quests"
-            height={90}
-            width={90}
-          />
+          <Image src="/quests.svg" alt="Quests" height={90} width={90} />
           <h1 className="text-center font-bold text-neutral-800 text-2xl my-6">
             Quests
           </h1>
@@ -68,10 +63,7 @@ const QuestsPage = async () => {
                     <p className="text-neutral-700 text-xl font-bold">
                       {quest.title}
                     </p>
-                    <Progress
-                      value={progress}
-                      className="h-3"
-                    />
+                    <Progress value={progress} className="h-3" />
                   </div>
                 </div>
               )
